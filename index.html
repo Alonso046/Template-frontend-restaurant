@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Digital - Haz tu pedido</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Cabecera del Local -->
+    <header class="header">
+        <h1>🍔 Burger Local</h1>
+        <p>Selecciona tus productos y pide directo a nuestro WhatsApp</p>
+    </header>
+
+    <!-- Contenedor Principal a dos columnas -->
+    <main class="container">
+        
+        <!-- Sección Izquierda: Catálogo de Productos -->
+        <section class="menu-section">
+            <!-- Navegación de Categorías -->
+            <nav id="categories-container" class="categories-nav">
+                <!-- JavaScript inyectará los botones de categorías aquí -->
+                <button class="active">Cargando categorías...</button>
+            </nav>
+
+            <!-- Grilla de Productos -->
+            <div id="products-container" class="products-grid">
+                <!-- JavaScript inyectará las tarjetas (cards) de productos aquí -->
+                <p>Cargando menú...</p>
+            </div>
+        </section>
+
+        <!-- Sección Derecha: Carrito de Compras y Checkout -->
+        <aside class="cart-section">
+            <h2>Tu Pedido 🛒</h2>
+            
+            <!-- Lista de items seleccionados -->
+            <ul id="cart-items" class="cart-items-list">
+                <li class="empty-cart">Tu carrito está vacío</li>
+            </ul>
+
+            <!-- Resumen y Formulario de Cliente -->
+            <div class="cart-summary">
+                <div class="total-row">
+                    <span>Total a pagar:</span>
+                    <span id="cart-total">$0</span>
+                </div>
+                
+                <form id="order-form" class="checkout-form">
+                    <input type="text" id="customer-name" placeholder="Tu Nombre completo" required>
+                    <!-- Type 'tel' ayuda a que en celulares se abra el teclado numérico -->
+                    <input type="tel" id="customer-phone" placeholder="Tu Teléfono (ej: 56912345678)" required>
+                    <textarea id="order-notes" placeholder="Notas adicionales (ej: Sin mayonesa, extra kétchup)"></textarea>
+                    
+                    <button type="submit" id="btn-submit-order" class="btn-primary" disabled>
+                        Enviar pedido por WhatsApp
+                    </button>
+                </form>
+            </div>
+        </aside>
+
+    </main>
+
+    <!-- Enlace al motor de lógica -->
+    <script src="app.js"></script>
+</body>
+</html>

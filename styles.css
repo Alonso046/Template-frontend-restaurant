@@ -1,0 +1,237 @@
+/* =========================================
+   VARIABLES (Fáciles de cambiar por cliente)
+   ========================================= */
+:root {
+    --primary-color: #ff4757; /* Rojo para comida rápida. Cámbialo a café para una cafetería */
+    --primary-hover: #ff6b81;
+    --bg-color: #f1f2f6;
+    --card-bg: #ffffff;
+    --text-dark: #2f3542;
+    --text-light: #747d8c;
+    --border-radius: 12px;
+    --shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+/* =========================================
+   RESET Y BASE
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-dark);
+    line-height: 1.6;
+}
+
+/* =========================================
+   CABECERA
+   ========================================= */
+.header {
+    background-color: var(--card-bg);
+    text-align: center;
+    padding: 2rem 1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.header h1 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+/* =========================================
+   CONTENEDOR PRINCIPAL Y LAYOUT
+   ========================================= */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    display: flex;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
+.menu-section {
+    flex: 1; /* Ocupa el espacio restante */
+}
+
+/* =========================================
+   NAVEGACIÓN DE CATEGORÍAS
+   ========================================= */
+.categories-nav {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.categories-nav button {
+    background-color: var(--card-bg);
+    border: 1px solid #dfe4ea;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+}
+
+.categories-nav button.active, 
+.categories-nav button:hover {
+    background-color: var(--primary-color);
+    color: white;
+    border-color: var(--primary-color);
+}
+
+/* =========================================
+   GRILLA DE PRODUCTOS Y TARJETAS
+   ========================================= */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+.product-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.product-card h3 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .price {
+    color: var(--primary-color);
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.product-card button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.product-card button:hover {
+    background-color: var(--primary-hover);
+}
+
+/* =========================================
+   SECCIÓN DEL CARRITO
+   ========================================= */
+.cart-section {
+    width: 350px;
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 2rem; /* El carrito se queda fijo al hacer scroll */
+}
+
+.cart-section h2 {
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 0.5rem;
+}
+
+.cart-items-list {
+    list-style: none;
+    margin-bottom: 1.5rem;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.cart-items-list li {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+    font-size: 0.95rem;
+}
+
+.empty-cart {
+    color: var(--text-light);
+    text-align: center;
+    font-style: italic;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+/* =========================================
+   FORMULARIO DE CHECKOUT
+   ========================================= */
+.checkout-form input,
+.checkout-form textarea {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border: 1px solid #dfe4ea;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+}
+
+.checkout-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: #2ed573; /* Verde estilo WhatsApp */
+    color: white;
+    border: none;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.btn-primary:disabled {
+    background-color: #a4b0be;
+    cursor: not-allowed;
+}
+
+.btn-primary:not(:disabled):hover {
+    opacity: 0.9;
+}
+
+/* =========================================
+   ADAPTABILIDAD MÓVIL (MEDIA QUERIES)
+   ========================================= */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column; /* Apila el menú arriba y el carrito abajo */
+    }
+    .cart-section {
+        width: 100%;
+        position: static; /* Quita el sticky en móviles */
+    }
+}
