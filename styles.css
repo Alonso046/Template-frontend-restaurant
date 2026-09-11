@@ -1,42 +1,69 @@
 /* =========================================
-   VARIABLES (Fáciles de cambiar por cliente)
+   VARIABLES (Tema Oscuro)
    ========================================= */
 :root {
-    --primary-color: #ff4757; /* Rojo para comida rápida. Cámbialo a café para una cafetería */
+    --primary-color: #ff4757;
     --primary-hover: #ff6b81;
-    --bg-color: #f1f2f6;
-    --card-bg: #ffffff;
-    --text-dark: #2f3542;
-    --text-light: #747d8c;
+    --bg-color: #0f111a; 
+    --card-bg: #1e2235;  
+    --text-dark: #f1f2f6; 
+    --text-light: #a4b0be;
     --border-radius: 12px;
-    --shadow: 0 4px 6px rgba(0,0,0,0.05);
+    --shadow: 0 8px 16px rgba(0,0,0,0.4);
 }
 
-/* =========================================
-   RESET Y BASE
-   ========================================= */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-    background-color: var(--bg-color);
+    /* Fondo Degradado Animado */
+    background: linear-gradient(-45deg, #0f111a, #1a1a2e, #16213e, #0f111a);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
     color: var(--text-dark);
     line-height: 1.6;
+    min-height: 100vh;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* =========================================
-   CABECERA
+   CABECERA HERO (Banner Comercial)
    ========================================= */
 .header {
-    background-color: var(--card-bg);
-    text-align: center;
-    padding: 2rem 1rem;
-    box-shadow: var(--shadow);
+    /* Reemplaza esta URL por la imagen del local real de tu cliente */
+    background-image: url('https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
     margin-bottom: 2rem;
+    position: relative;
+}
+
+.header-overlay {
+    background-color: rgba(0, 0, 0, 0.6); /* Capa oscura para que el texto sea legible */
+    padding: 4rem 1rem;
+    text-align: center;
+    color: white;
+}
+
+.header-overlay h1 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.header-overlay p {
+    font-size: 1.1rem;
+    opacity: 0.9;
 }
 
 .header h1 {
@@ -52,12 +79,14 @@ body {
     margin: 0 auto;
     padding: 0 1rem;
     display: flex;
+    flex-wrap: wrap;
     gap: 2rem;
     align-items: flex-start;
 }
 
 .menu-section {
-    flex: 1; /* Ocupa el espacio restante */
+    flex: 1 1 60%;
+    min-width: 300px;
 }
 
 /* =========================================
@@ -94,7 +123,7 @@ body {
    ========================================= */
 .products-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 1.5rem;
 }
 
@@ -107,6 +136,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .product-card h3 {
@@ -136,11 +166,17 @@ body {
     background-color: var(--primary-hover);
 }
 
+/* Nuevo efecto al pasar el mouse */
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
 /* =========================================
    SECCIÓN DEL CARRITO
    ========================================= */
 .cart-section {
-    width: 350px;
+    flex: 1 1 300px;
     background-color: var(--card-bg);
     padding: 1.5rem;
     border-radius: var(--border-radius);
@@ -234,4 +270,168 @@ body {
         width: 100%;
         position: static; /* Quita el sticky en móviles */
     }
+}
+
+
+/* Ajuste de formulario para modo oscuro */
+.checkout-form input,
+.checkout-form textarea {
+    background-color: #2a2f4c;
+    color: white;
+    border: 1px solid #3f4566;
+}
+
+.checkout-form input::placeholder,
+.checkout-form textarea::placeholder {
+    color: #747d8c;
+}
+
+/* Diseño del nuevo botón de eliminar */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.cart-item-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-remove {
+    background: none;
+    border: none;
+    color: #ff4757;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+}
+
+.btn-remove:hover {
+    transform: scale(1.2);
+}
+
+
+/* Controles de cantidad en el carrito */
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.item-name {
+    font-weight: 600;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #2a2f4c;
+    width: fit-content;
+    padding: 2px 8px;
+    border-radius: 20px;
+}
+
+.btn-qty {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: color 0.2s;
+}
+
+.btn-qty:hover {
+    color: var(--primary-color);
+}
+
+
+
+/* =========================================
+   IMÁGENES DE PRODUCTOS
+   ========================================= */
+.product-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+/* =========================================
+   PANEL LATERAL DEL CARRITO (SIDEBAR)
+   ========================================= */
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 400px;
+    max-width: 100%;
+    height: 100vh;
+    background-color: var(--card-bg);
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    padding: 1.5rem;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cart-sidebar.closed {
+    transform: translateX(100%); /* Oculta el panel a la derecha */
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--bg-color);
+    padding-bottom: 0.5rem;
+}
+
+.btn-close-sidebar {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+/* =========================================
+   BOTÓN FLOTANTE (FAB)
+   ========================================= */
+.floating-cart-btn {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+    z-index: 999;
+    transition: transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.floating-cart-btn:hover {
+    transform: scale(1.05);
+}
+
+.badge {
+    background-color: white;
+    color: var(--primary-color);
+    padding: 2px 8px;
+    border-radius: 50%;
+    font-size: 0.9rem;
 }

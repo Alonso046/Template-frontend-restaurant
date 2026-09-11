@@ -4,43 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Digital - Haz tu pedido</title>
+    <!-- Importar tipografía moderna de Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <!-- Cabecera del Local -->
-    <header class="header">
-        <h1>🍔 Burger Local</h1>
-        <p>Selecciona tus productos y pide directo a nuestro WhatsApp</p>
-    </header>
-
-    <!-- Contenedor Principal a dos columnas -->
-    <main class="container">
-        
-        <!-- Sección Izquierda: Catálogo de Productos -->
-        <section class="menu-section">
-            <!-- Navegación de Categorías -->
-            <nav id="categories-container" class="categories-nav">
-                <!-- JavaScript inyectará los botones de categorías aquí -->
-                <button class="active">Cargando categorías...</button>
-            </nav>
-
-            <!-- Grilla de Productos -->
-            <div id="products-container" class="products-grid">
-                <!-- JavaScript inyectará las tarjetas (cards) de productos aquí -->
-                <p>Cargando menú...</p>
+    <body>
+        <header class="header">
+            <div class="header-overlay">
+                <h1>🍔 Burger Local</h1>
+                <p>Selecciona tus productos y pide directo a nuestro WhatsApp</p>
             </div>
-        </section>
+        </header>
 
-        <!-- Sección Derecha: Carrito de Compras y Checkout -->
-        <aside class="cart-section">
-            <h2>Tu Pedido 🛒</h2>
+        <!-- Menú Ocupa ahora el 100% del ancho -->
+        <main class="container">
+            <section class="menu-section" style="width: 100%;">
+                <nav id="categories-container" class="categories-nav"></nav>
+                <div id="products-container" class="products-grid"></div>
+            </section>
+        </main>
+
+        <!-- Botón Flotante para abrir el carrito -->
+        <button id="floating-cart-btn" class="floating-cart-btn" onclick="toggleCart()">
+            🛒 Ver Carrito <span id="cart-badge" class="badge">0</span>
+        </button>
+
+        <!-- Carrito ahora es un Panel Lateral (Sidebar) oculto por defecto -->
+        <aside id="cart-sidebar" class="cart-sidebar closed">
+            <div class="cart-header">
+                <h2>Tu Pedido 🛒</h2>
+                <button onclick="toggleCart()" class="btn-close-sidebar">✖</button>
+            </div>
             
-            <!-- Lista de items seleccionados -->
             <ul id="cart-items" class="cart-items-list">
                 <li class="empty-cart">Tu carrito está vacío</li>
             </ul>
 
-            <!-- Resumen y Formulario de Cliente -->
             <div class="cart-summary">
                 <div class="total-row">
                     <span>Total a pagar:</span>
@@ -49,20 +48,13 @@
                 
                 <form id="order-form" class="checkout-form">
                     <input type="text" id="customer-name" placeholder="Tu Nombre completo" required>
-                    <!-- Type 'tel' ayuda a que en celulares se abra el teclado numérico -->
                     <input type="tel" id="customer-phone" placeholder="Tu Teléfono (ej: 56912345678)" required>
-                    <textarea id="order-notes" placeholder="Notas adicionales (ej: Sin mayonesa, extra kétchup)"></textarea>
-                    
-                    <button type="submit" id="btn-submit-order" class="btn-primary" disabled>
-                        Enviar pedido por WhatsApp
-                    </button>
+                    <textarea id="order-notes" placeholder="Notas adicionales"></textarea>
+                    <button type="submit" id="btn-submit-order" class="btn-primary" disabled>Enviar pedido por WhatsApp</button>
                 </form>
             </div>
         </aside>
 
-    </main>
-
-    <!-- Enlace al motor de lógica -->
-    <script src="app.js"></script>
+        <script src="app.js"></script>
 </body>
 </html>

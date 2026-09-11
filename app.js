@@ -62,8 +62,14 @@ window.filterProducts = (categoryId) => {
 
     filtered.forEach(prod => {
         if (prod.is_available) {
+            // Se inyecta la imagen. Si no hay URL, ponemos un color oscuro por defecto.
+            const imgHtml = prod.image_url 
+                ? `<img src="${prod.image_url}" alt="${prod.name}" class="product-image">`
+                : `<div class="product-image" style="background-color: #2a2f4c;"></div>`;
+
             productsContainer.innerHTML += `
                 <div class="product-card">
+                    ${imgHtml}
                     <div>
                         <h3>${prod.name}</h3>
                         <div class="price">$${prod.price}</div>
@@ -90,6 +96,28 @@ window.addToCart = (productId) => {
     updateCartUI();
 };
 
+// Función para aumentar o disminuir la cantidad directamente en el carrito
+window.changeQuantity = (productId, delta) => {
+    if (cart[productId]) {
+        cart[productId].quantity += delta;
+        
+        // Si la cantidad llega a 0 al restar, eliminamos el producto del carrito
+        if (cart[productId].quantity <= 0) {
+            delete cart[productId];
+        }
+        
+        // Volvemos a dibujar el carrito con los nuevos valores
+        updateCartUI();
+    }
+};
+
+// Función para eliminar un producto del carrito completamente
+window.removeFromCart = (productId) => {
+    delete cart[productId];
+    updateCartUI();
+};
+
+// Dibujar la interfaz del carrito
 function updateCartUI() {
     cartItemsList.innerHTML = '';
     let total = 0;
@@ -101,9 +129,19 @@ function updateCartUI() {
         hasItems = true;
 
         cartItemsList.innerHTML += `
-            <li>
-                <span>${item.quantity}x ${item.name}</span>
-                <span>$${item.price * item.quantity}</span>
+            <li class="cart-item">
+                <div class="cart-item-info">
+                    <span class="item-name">${item.name}</span>
+                    <div class="quantity-controls">
+                        <button type="button" onclick="changeQuantity(${item.id}, -1)" class="btn-qty">-</button>
+                        <span>${item.quantity}</span>
+                        <button type="button" onclick="changeQuantity(${item.id}, 1)" class="btn-qty">+</button>
+                    </div>
+                </div>
+                <div class="cart-item-actions">
+                    <span>$${item.price * item.quantity}</span>
+                    <button type="button" onclick="removeFromCart(${item.id})" class="btn-remove" title="Eliminar producto">✖</button>
+                </div>
             </li>
         `;
     }
@@ -117,6 +155,10 @@ function updateCartUI() {
     } else {
         btnSubmit.disabled = false;
     }
+
+    // Actualizar el número en el botón flotante
+    const totalItems = Object.values(cart).reduce((acc, item) => acc + item.quantity, 0);
+    document.getElementById('cart-badge').innerText = totalItems;
 }
 
 // 5. Enviar la Orden al Backend
@@ -171,6 +213,12 @@ function resetButton() {
     btnSubmit.innerText = "Enviar pedido por WhatsApp";
     btnSubmit.disabled = false;
 }
+
+// 6. Abrir / Cerrar panel lateral del carrito
+window.toggleCart = () => {
+    const sidebar = document.getElementById('cart-sidebar');
+    sidebar.classList.toggle('closed');
+};
 
 // Iniciar la aplicación cuando el script cargue
 initApp();
